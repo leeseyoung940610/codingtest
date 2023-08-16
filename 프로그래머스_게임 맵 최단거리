@@ -59,16 +59,6 @@ int solution(vector<vector<int> > maps)
     
     BFS();
     
-    for(int i = 0; i<maps.size(); i++)
-    {
-        for(int j = 0; j<maps[i].size(); j++)
-        {
-            cout<<minmap[i][j]<<" ";
-            
-        }
-        cout<<endl;
-    }
-    
     answer = minmap[n-1][m-1] == 0 ? -1 : minmap[n-1][m-1];
     
     return answer;
