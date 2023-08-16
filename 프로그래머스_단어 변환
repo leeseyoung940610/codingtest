@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string c_begin;
+string c_target;
+vector<string> cwords;
+vector<int> vec_cnt;
+bool visited[51];
+
+bool compare_word(string s1, string s2)
+{
+    int val = 0;
+    
+    for(int i = 0; i < s1.size(); i++)
+    {
+        if(s1[i] != s2[i])
+            val++;
+    }
+    
+    if(val == 1)
+        return true;
+    else
+        return false;
+}
+
+void DFS(string current, int cnt, int p)
+{
+    if(current == c_target)
+    {
+        vec_cnt.push_back(cnt);
+        cout<<endl;
+        return;
+    }
+    
+    for(int i = 0; i<cwords.size(); i++)
+    {
+        if(!visited[i] && compare_word(current, cwords[i]))
+        {
+            visited[i] = true;
+            DFS(cwords[i], cnt+1, p+1);
+            visited[i] = false;
+        }
+            
+    }
+}
+
+int solution(string begin, string target, vector<string> words) {
+    int answer = 0;
+    
+    for(int i = 0; i<words.size(); i++)
+        cwords.push_back(words[i]);
+      
+    
+    c_begin = begin;
+    c_target = target;
+    
+    DFS(c_begin, 0, 0);
+    
+    sort(vec_cnt.begin(), vec_cnt.end());
+    
+    if(vec_cnt.size() == 0)
+        answer = 0;
+    else
+        answer = vec_cnt[0];
+    
+    return answer;
+}
