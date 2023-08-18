@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+bool visited[201] = { false };
+
+void DFS(int cur, int node, vector<vector<int>>&computers)
+{
+    for(int i = 0; i<node; i++)
+    {
+        if(cur != i && computers[cur][i] == 1 && visited[i] == false)
+        {
+            visited[i] = true;
+            DFS(i, node, computers);
+        }
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    
+    for(int i = 0; i<n; i++)
+    {
+        if(visited[i] == true)
+            continue;
+        
+        visited[i] = true;
+        answer++;
+        DFS(i, n, computers);
+        
+    }
+    
+    return answer;
+}
