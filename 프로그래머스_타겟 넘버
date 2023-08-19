@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int tanswer = 0;
+int ctarget = 0;
+
+void DFS(vector<int> & cnumbers, int p, int sum, int ctarget)
+{
+    
+    if(p==cnumbers.size())
+    {
+        if(sum == ctarget)
+        {
+            
+            tanswer++;
+        }
+        
+        return;
+    }
+    
+    DFS(cnumbers, p+1, sum + cnumbers[p], ctarget);
+    DFS(cnumbers, p+1, sum - cnumbers[p], ctarget);
+}
+
+int solution(vector<int> numbers, int target) {
+    int answer = 0;
+    
+    DFS(numbers, 0, 0, target);
+    
+    answer = tanswer;
+    return answer;
+}
